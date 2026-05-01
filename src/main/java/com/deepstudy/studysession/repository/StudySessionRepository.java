@@ -1,0 +1,10 @@
+package com.deepstudy.studysession.repository;
+
+import com.deepstudy.studysession.domain.StudySession;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+
+public interface StudySessionRepository extends JpaRepository<StudySession, Long> {
+    List<StudySession> findByUserId(Long userId);
+}

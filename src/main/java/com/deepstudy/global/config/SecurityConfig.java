@@ -26,7 +26,10 @@ public class SecurityConfig {
                                 "/v3/api-docs/**",
                                 "/api/topics/**",
                                 "/api/contents/**",
-                                "/api/topics/*/contents/**"
+                                "/api/topics/*/contents/**",
+                                "/api/study-sessions/**",
+                                "/api/topics/*/study-sessions"
+
                         ).permitAll()
                         .anyRequest().authenticated());
 
