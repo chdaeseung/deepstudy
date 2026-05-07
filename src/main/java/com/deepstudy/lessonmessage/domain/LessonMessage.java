@@ -25,6 +25,6 @@ public class LessonMessage extends BaseEntity {
     private MessageRole role;
 
     @Lob
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "LONGTEXT")
     private String content;
 }

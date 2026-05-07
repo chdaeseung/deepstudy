@@ -28,7 +28,9 @@ public class SecurityConfig {
                                 "/api/contents/**",
                                 "/api/topics/*/contents/**",
                                 "/api/study-sessions/**",
-                                "/api/topics/*/study-sessions"
+                                "/api/topics/*/study-sessions",
+                                "/api/ai/**",
+                                "/api/study-sessions/*/teacher/messages"
 
                         ).permitAll()
                         .anyRequest().authenticated());
