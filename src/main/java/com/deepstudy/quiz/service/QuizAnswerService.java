@@ -11,6 +11,8 @@ import com.deepstudy.quiz.dto.QuizEvaluateResult;
 import com.deepstudy.quiz.repository.QuizAnswerRepository;
 import com.deepstudy.quiz.repository.QuizQuestionRepository;
 import com.deepstudy.quiz.util.QuizEvaluateParser;
+import com.deepstudy.understanding.domain.ConceptUnderstanding;
+import com.deepstudy.understanding.repository.ConceptUnderstandingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +28,7 @@ public class QuizAnswerService {
     private final QuizAnswerRepository quizAnswerRepository;
     private final QuizEvaluateAiService quizEvaluateAiService;
     private final QuizEvaluateParser quizEvaluateParser;
+    private final ConceptUnderstandingRepository conceptUnderstandingRepository;
 
     @Transactional
     public QuizAnswerResponseDto submitAnswer(Long questionId, QuizAnswerCreateRequestDto requestDto) {
@@ -40,6 +43,7 @@ public class QuizAnswerService {
 
         QuizEvaluateResult result = quizEvaluateParser.parse(aiResponse);
 
+
         QuizAnswer answer = QuizAnswer.builder()
                 .quizQuestion(question)
                 .userId(TEMP_USER_ID)
@@ -48,6 +52,26 @@ public class QuizAnswerService {
                 .feedback(result.feedback())
                 .build();
 
-        return QuizAnswerResponseDto.from(quizAnswerRepository.save(answer));
+        QuizAnswer savedAnswer = quizAnswerRepository.save(answer);
+
+        Long topicId = question.getStudySession().getTopic().getId();
+
+        ConceptUnderstanding understanding = conceptUnderstandingRepository.findByUserIdAndTopicId(TEMP_USER_ID, topicId)
+                .orElseGet(() -> ConceptUnderstanding.builder()
+                        .userId(TEMP_USER_ID)
+                        .topic(question.getStudySession().getTopic())
+                        .understandingLevel(0)
+                        .summary("")
+                        .weakPoints("")
+                        .improvedPoints("")
+                        .lastQuizScore(0)
+                        .build()
+                );
+
+        understanding.updateByQuizResult(result.score(), result.feedback());
+
+        conceptUnderstandingRepository.save(understanding);
+
+        return QuizAnswerResponseDto.from(savedAnswer);
     }
 }

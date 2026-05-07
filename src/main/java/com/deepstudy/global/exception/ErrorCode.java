@@ -13,6 +13,7 @@ public enum ErrorCode {
     LEARNING_CONTENT_STEP_NOT_FOUND("LEARNING_CONTENT_STEP_NOT_FOUND", "현재 단계에 해당하는 학습 컨텐츠가 없습니다."),
     STUDY_SESSION_NOT_FOUND("STUDY_SESSION_NOT_FOUND", "존재하지 않는 학습 세션입니다."),
     QUIZ_QUESTION_NOT_FOUND("QUIZ_QUESTION_NOT_FOUND", "존재하지 않는 퀴즈입니다."),
+    CONCEPT_UNDERSTANDING_NOT_FOUND("CONCEPT_UNDERSTANDING_NOT_FOUND", "존재하지 않는 이해 정보 입니다."),
     INVALID_INPUT("INVALID_INPUT", "잘못된 입력입니다."),;
 
     private final String code;
