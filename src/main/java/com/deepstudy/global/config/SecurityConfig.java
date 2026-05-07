@@ -30,7 +30,9 @@ public class SecurityConfig {
                                 "/api/study-sessions/**",
                                 "/api/topics/*/study-sessions",
                                 "/api/ai/**",
-                                "/api/study-sessions/*/teacher/messages"
+                                "/api/study-sessions/*/teacher/messages",
+                                "/api/study-sessions/*/quiz/questions",
+                                "/api/quiz-questions/*/answers"
 
                         ).permitAll()
                         .anyRequest().authenticated());
