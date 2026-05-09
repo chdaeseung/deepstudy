@@ -33,8 +33,8 @@ public class SecurityConfig {
                                 "/api/study-sessions/*/teacher/messages",
                                 "/api/study-sessions/*/quiz/questions",
                                 "/api/quiz-questions/*/answers",
-                                "/api/me/understandings/**"
-
+                                "/api/me/understandings/**",
+                                "/api/study-sessions/*/questions"
                         ).permitAll()
                         .anyRequest().authenticated());
 

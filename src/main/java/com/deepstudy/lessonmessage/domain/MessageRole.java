@@ -4,5 +4,6 @@ public enum MessageRole {
     USER,
     AI,
     SYSTEM,
-    TEACHER_AI
+    TEACHER_AI,
+    QA_AI
 }
